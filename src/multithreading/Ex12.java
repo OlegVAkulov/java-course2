@@ -1,0 +1,72 @@
+package multithreading;
+
+public class Ex12 {
+//
+    static final Object lock = new Object();
+
+    void mobileCall() {
+        synchronized (lock){
+        System.out.println("Mobile call start");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Mobile call ends");
+    }}
+
+    void skypeCall() {
+        synchronized (lock){
+        System.out.println("skype call start");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("skype call ends");
+    }}
+
+    void whatsappCall() {
+        synchronized (lock){
+        System.out.println("whatsapp call start");
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("whatsapp call ends");
+    }}
+
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new RunnableMobile());
+        Thread thread2 = new Thread(new RunnableWhatsapp());
+        Thread thread3 = new Thread(new RunnableSkype());
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
+}
+
+class RunnableMobile implements Runnable {
+    @Override
+    public void run() {
+        new Ex12().mobileCall();
+    }
+}
+
+class RunnableSkype implements Runnable {
+    @Override
+    public void run() {
+        new Ex12().skypeCall();
+    }
+}
+
+class RunnableWhatsapp implements Runnable {
+    @Override
+    public void run() {
+        new Ex12().whatsappCall();
+    }
+}
+//class Call{
+//
+//}
